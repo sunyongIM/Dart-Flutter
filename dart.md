@@ -88,8 +88,8 @@ void main() {
   print(name?.isNotEmpty);
 }
 
->>> true
->>> null
+/// true
+/// null
 ```
 
 
@@ -126,7 +126,7 @@ void main(){
   print(name);
 }
 
->>> name
+/// name
 ```
 
 
@@ -141,4 +141,237 @@ compile-time constant는 컴파일 할때 하드코딩 되는 것과 같다
 
 
 ## 1.7 Recap (recapitulate)
+
+
+
+# DATA TYPES
+
+---
+
+dart의 모든 타입은 object이다
+
+## 2.0 Basic Data Types
+
+String
+bool
+int
+double
+num (int와 double의 상위클래스)
+
+
+
+## 2.1 Lists
+
+> 리스트의 마지막 element에 ,가 있으면 화면상 정리가 더 잘된다
+
+```dart
+var numbers = [1,2,3,4,];
+// List<int> numbers = [1,2,3,4,]; 로 컴파일됨
+```
+
+
+
+### collection if
+
+```dart
+var isTrue = true;
+var numbers = [
+  1,
+  2,
+  3,
+  4,
+  if (isTrue) 5,
+]
+```
+
+
+
+## 2.2 String Interpolation
+
+> $ 를 사용해서 String에 변수를 넣을 수 있다
+> ${ } 로 계산한 결과를 사용할 수도 있다
+
+```dart
+var name = 'name';
+var age = 10;
+var greeting = "Hello everyone, my name is $name and I'm ${age + 4}";
+```
+
+
+
+## 2.3 Collection for
+
+```dart
+var oldNum = ['4','5'];
+var newNum = [
+  '1',
+  '2',
+  '3',
+  for (var number in oldNum) 'added $number',
+];
+
+/// [1, 2, 3, added 4, added 5]
+
+```
+
+
+
+## 2.4 Maps
+
+```dart
+var player = {
+  'name': 'name',
+  'tall': 183.7,
+  'age': 30,
+}
+```
+
+
+
+## 2.5 Sets
+
+```dart
+var numbers = {1,2,3,4};
+// Set<int> numbers = {1,2,3,4};
+```
+
+
+
+# FUNCTIONS
+
+---
+
+## 3.0 Defining a Fuction
+
+> function이 return 한 줄만 가지고 있을때 fat arrow syntax 사용
+
+```dart
+void sayHello(String name){
+  print("hello $name!");
+}
+
+String sayHello(String name){
+  return "hello $name!";
+}
+
+// fat arrow syntax
+String sayHello(String name) => "hello $name!";
+```
+
+
+
+## 3.1 Named Parameters
+
+> Positional Parameters 와 반대의 개념
+>
+> null safety를 위해서 default value를 정해주거나,
+> required를 사용해서 Parameter를 항상 받을 수 있게 해줘야한다
+
+```dart
+String sayHello({String name = '', int age = 0, String country=''})
+  => 'Hello my name is $name, $age and I\'m from $country';
+
+void main(){
+  print(sayHello(name: 'name', age: 30, country: 'korea'));
+}
+
+/// Hello my name is name, 30 and I'm from korea
+```
+
+```dart
+String sayHello({required String name, required int age, required String country})
+  => 'Hello my name is $name, $age and I\'m from $country';
+
+void main(){
+  print(sayHello(name: 'name', age: 30, country: 'korea'));
+}
+
+/// Hello my name is name, 30 and I'm from korea
+```
+
+
+
+## 3.2 Recap
+
+
+
+## 3.3 Optional Positional Parameters
+
+```dart
+String sayHello( String name, int age, [String? country])
+  => 'Hello my name is $name, $age and I\'m from $country';
+
+void main(){
+  print(sayHello('name', 30));
+}
+
+/// Hello my name is name, 30 and I'm from null
+```
+
+
+
+## 3.4 QQ Operator (Null Aware Operator)
+
+> ??
+> ??=
+>
+> left ?? right
+>
+> - left가 null이면 right을 return하고 left가 not null이면 left를 return함
+>
+> 변수 ??= 값
+>
+> - 변수가 null이면 값을 할당한다
+
+```dart
+String upperCase(String? name)
+  => name != null ? name.toUpperCase() : 'Need Name';
+
+void main(){
+  print(upperCase('name'));
+  print(upperCase(null));
+}
+
+/// NAME
+/// Need Name
+```
+
+```dart
+String upperCase(String? name)
+  => name?.toUpperCase() ?? 'Need Name';
+
+void main(){
+  print(upperCase('name'));
+  print(upperCase(null));
+}
+
+/// NAME
+/// Need Name
+```
+
+
+
+## 3.5 Typedef
+
+> Type을 alias하는 것
+> Map이나 Set같은 복잡한 타입은 class로 정의하는 것이 좋다
+
+```dart
+typedef LoI = List<int>;
+
+LoI reverseList(LoI loi)
+  => loi.reversed.toList();
+
+void main(){
+  print(reverseList([1,2,3]));
+}
+
+/// [3, 2, 1]
+```
+
+
+
+# CLASSES
+
+---
 
