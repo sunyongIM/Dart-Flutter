@@ -375,3 +375,307 @@ void main(){
 
 ---
 
+
+
+## 4.0 Your First Dart Class
+
+> Class의 Properties를 정의할 때는 var가 아닌 해당 데이터에 대한 정확한 타입을 명시해 주어야 한다
+>
+> instance를 생성할 때 new를 붙일 필요가 없다
+> 클래스의 메서드 생성 시, 클래스 Property는 this. 를 붙이지 않아도 된다. 다만, Property와 동일한 이름의 지역변수가 있다면 this.를 붙어야한다
+
+```dart
+class Player {
+  String name = 'name';
+  int age = 20;
+  
+  void sayHello(){
+    print('Hi my name is $name and I\'m $age');
+  }
+}
+
+void main(){
+  var player = Player();
+  player.sayHello();
+  player.name = 'name1';
+  player.sayHello();
+}
+
+// Hi my name is name and I'm 20
+// Hi my name is name1 and I'm 20
+```
+
+
+
+## 4.1 Constructors
+
+> 생성자
+
+```dart
+class Player {
+  late final String name;
+  late int age;
+  
+  Player(String name, int age){
+    this.name = name;
+    this.age = age;
+  }
+  
+  void sayHello(){
+    print('Hi my name is $name and I\'m $age');
+  }
+}
+
+void main(){
+  var player = Player('name1', 20);
+  player.sayHello();
+  var player2 = Player('name2', 22);
+  player.sayHello();
+}
+
+// Hi my name is name1 and I'm 20
+// Hi my name is name2 and I'm 22
+```
+
+
+
+dart에서 생성자는 더 간단하게 구현할 수 있다
+
+```dart
+class Player {
+  final String name;
+  int age;
+  
+  Player(this.name, this.age); // <--
+  
+  void sayHello(){
+    print('Hi my name is $name and I\'m $age');
+  }
+}
+
+void main(){
+  var player = Player('name1', 20);
+  player.sayHello();
+  var player2 = Player('name2', 22);
+  player.sayHello();
+}
+
+// Hi my name is name1 and I'm 20
+// Hi my name is name2 and I'm 22
+```
+
+
+
+## 4.2 Named Constructor Parameters
+
+
+
+```dart
+class Player {
+  final String name;
+  int age, backNumber;
+  String team, position;
+
+  Player({
+    required this.name,
+    required this.age,
+    required this.backNumber,
+    required this.team,
+    required this.position,
+  });
+
+  void sayHello() {
+    print('Hi my name is $name and I\'m $age');
+  }
+}
+
+void main() {
+  var player = Player(
+    name: 'name1',
+    age: 20,
+    backNumber: 15,
+    team: 'team1',
+    position: 'position1',
+  );
+  player.sayHello();
+  
+  var player2 =  Player(
+    name: 'name2',
+    age: 22,
+    backNumber: 19,
+    team: 'team2',
+    position: 'position2',
+  );
+  player2.sayHello();
+}
+
+// Hi my name is name1 and I'm 20
+// Hi my name is name2 and I'm 22
+```
+
+
+
+## 4.3 Named Constructors ★
+
+> 다양한 생성자를 만드는 방법
+> `ClassName.constructure({}):`
+> 콜론 이후에 선언된 변수들 매핑한다
+
+```dart
+class Player {
+  final String name;
+  int age, backNumber;
+  String team, position;
+
+  Player({
+    required this.name,
+    required this.age,
+    required this.backNumber,
+    required this.team,
+    required this.position,
+  });
+  
+  Player.createBluePlayer({required String name, required int age}):
+  this.name = name,
+  this.age = age,
+  this.backNumber = 0,
+  this.team = 'Blue',
+  this.position = 'not fixed';
+
+  void printProperties() {
+    print('name=$name\nage=$age\nbackNumber=$backNumber\nteam=$team\nposition=$position\n');
+  }
+}
+
+void main() {
+  var player = Player.createBluePlayer(
+    name: 'name1',
+    age: 20,
+  );
+  player.printProperties();
+  
+  var player2 =  Player(
+    name: 'name2',
+    age: 22,
+    backNumber: 19,
+    team: 'team2',
+    position: 'position2',
+  );
+  player2.printProperties();
+}
+
+/*
+name=name1
+age=20
+backNumber=0
+team=Blue
+position=not fixed
+
+name=name2
+age=22
+backNumber=19
+team=team2
+position=position2
+*/
+```
+
+
+
+## 4.4 Recap
+
+
+
+## 4.5 Cascade Notation
+
+> 인스턴스의 속성들을 수정할 때 한번에 나열하여 수정할 수 있음
+> `..` 을 이용하고 연속해서 이어서 재할당 할 수 있음
+
+```dart
+class Player {
+  final String name;
+  int age, backNumber;
+  String team, position;
+
+  Player({
+    required this.name,
+    required this.age,
+    required this.backNumber,
+    required this.team,
+    required this.position,
+  });
+  
+  void printProperties() {
+    print('name=$name\nage=$age\nbackNumber=$backNumber\nteam=$team\nposition=$position\n');
+  }
+}
+  
+void main() {
+  var player1 = Player(name: 'name1', age: 12, backNumber: 10, team: 'red', position: 'striker');
+  player1.printProperties();
+  player1..age=22..backNumber=33..team='blue'..position='guard'; // Cascade Notation (재할당)
+  player1.printProperties();
+}
+
+/*
+name=name1
+age=12
+backNumber=10
+team=red
+position=striker
+
+name=name1
+age=22
+backNumber=33
+team=blue
+position=guard
+*/ 
+```
+
+
+
+## 4.6 Enums
+
+> enum은 선택의 폭을 좁혀주는 역할을 한다 (실수 방지)
+> 
+
+```dart
+enum Team { red, blue }
+
+class Player {
+  final String name;
+  int age, backNumber;
+  Team team;
+  String position;
+  
+  Player({
+    required this.name,
+    required this.age,
+    required this.backNumber,
+    required this.team,
+    required this.position,
+  });
+  
+  void printProperties() {
+ print('name=$name\nage=$age\nbackNumber=$backNumber\nteam=$team\nposition=$position\n');
+  }
+}
+
+void main() {
+  var player1 = Player(name: 'name1', age: 12, backNumber: 10, team: Team.red, position: 'striker');
+  player1.printProperties();
+}
+
+/*
+name=name1
+age=12
+backNumber=10
+team=Team.red
+position=striker
+*/
+// printProperties의 $team 부분을 ${team.name}으로 수정하면 red나 blue의 값을 가져오고, ${team.index}로 수정하면 0이나 1의 결과가 나온다
+```
+
+
+
+## 4.7 Abstract Classes
+
