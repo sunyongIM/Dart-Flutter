@@ -3,7 +3,7 @@
 
 # Dart Language
 
-
+- Dart는 **Object Oriented Language**이다
 
 # INTRODUCTION
 
@@ -679,3 +679,134 @@ position=striker
 
 ## 4.7 Abstract Classes
 
+> extends로 abstract 클래스를 상속받으면 해당 메서드들을 구현할 책임을 가진다
+
+```dart
+abstract class Human {
+  void walk();
+  String howTall();
+  String sayHelloTo(String name);
+}
+```
+
+
+
+## 4.8 Inheritance
+
+```dart
+enum Team { red, blue }
+
+class Human {
+  final String name;
+  Human({required this.name});
+  void sayHello() {
+    print('Hi my name is $name');
+  }
+}
+
+class Player extends Human {
+  int age, backNumber;
+  Team team;
+  String position;
+  
+  Player({
+    required String name,
+    required this.age,
+    required this.backNumber,
+    required this.team,
+    required this.position,
+  }) : super(name : name);
+  
+  @override
+  void sayHello() {
+    super.sayHello();
+    print('and I play for ${team}');
+  }
+  
+  void printProperties() {
+ print('name=$name\nage=$age\nbackNumber=$backNumber\nteam=${team.index}\nposition=$position\n');
+  }
+}
+
+void main() {
+  var player1 = Player(name: 'name1', age: 12, backNumber: 10, team: Team.blue, position: 'striker');
+  player1.printProperties();
+  player1.sayHello();
+}
+
+/*
+name=name1
+age=12
+backNumber=10
+team=1
+position=striker
+
+Hi my name is name1
+and I play for Team.blue
+*/
+```
+
+
+
+## 4.9 Mixins
+
+> Mixin은 **생성자가 없는 클래스**의 **메서드와 속성**을
+> `with` 키워드를 이용해서 가지고 올 수 있다
+
+```dart
+enum Team { red, blue }
+
+class Tall {
+  late final int tall;
+}
+
+class Jump {
+  void jump() {
+    print('Jump!');
+  }
+}
+
+class Player with Tall, Jump {
+  final String name;
+  int age, backNumber;
+  Team team;
+  String position;
+
+  Player({
+    required this.name,
+    required this.age,
+    required this.backNumber,
+    required this.team,
+    required this.position,
+  });
+
+  void printProperties() {
+    print(
+        'name=$name\nage=$age\nbackNumber=$backNumber\nteam=$team\nposition=$position\n');
+  }
+}
+
+void main() {
+  var player1 = Player(
+      name: 'name1',
+      age: 12,
+      backNumber: 10,
+      team: Team.red,
+      position: 'striker');
+  player1.printProperties();
+  player1.jump();
+  player1.tall = 180;
+  print(player1.tall);
+}
+
+/*
+name=name1
+age=12
+backNumber=10
+team=Team.red
+position=striker
+
+Jump!
+180
+*/
+```
