@@ -79,6 +79,8 @@ simulator는 document를 읽고 따라하면 된다
 build는 Widget의 UI를 만드는 메서드이다 (따라서, 모든 Widget에 필요한 메서드이다)
 build 메서드는 Widget을 return 해야한다
 
+final field에 대한 required fields를 포함한 생성자를 자동으로 작성해주는 기능이 있다
+
 
 
 ### root Widget - 앱의 시작 위젯
@@ -98,3 +100,85 @@ property - home
 
 스캐폴드 위젯은 위젯들을 정렬하고 화면에 맞게 구현하기 위해 필요한 골격이다
 property - appBar, body ...
+
+
+
+## 2.5 Classes Recap
+
+> Dart에서는 클래스를 인스턴스화 할 때 new를 사용할 필요없다
+
+
+
+# UI CHALLENGE
+
+
+
+## 3.0 Header
+
+> Colors.red.shade100
+> shade로 색의 투명도를 설정할 수 있다
+>
+> Color(`0xFF~~~~~~`)과 Color.fromARGB(`~~~,~~,~~,~~`)   또는 Color.fromRGBO(`~~, ~~, ~~, ~`)를 이용하여 커스텀 색을 지정할 수 있다
+
+위젯을 다른 위젯으로 감쌀 때 전구 이미지를 이용하자
+
+
+
+## 3.1 Developer Tools
+
+
+
+## 3.2 Buttons Section
+
+
+
+## 3.3 VSCode Settings
+
+
+
+## 3.4 Code Actions
+
+> 전구 버튼을 클릭하거나 단축키를 사용해서 리팩토링 액션을 할 수 있다 - macOS / android studio의 경우는 ( option + enter )
+
+
+
+## 3.5 Reusable Widgets
+
+> 반복되는 위젯을 커스텀 위젯으로 만들어주자
+
+field를 final로 선언한 후에 required fields를 포함한 생성자를 자동으로 작성해주는 기능을 꼭 활용하자
+
+
+
+## 3.6 Cards
+
+> Colors.색깔.withOpacity(0~1) 를 사용할 때 const가 아니다,
+> 투명도는 앱에서 runtime중에 정하는 듯
+
+
+
+## 3.7 Icons and Transforms
+
+### Transform.scale()
+
+> 해당 위젯의 크기는 변하지만, 그것을 포함하는 부모 위젯의 크기는 변하지 않음
+
+### Transform.translate()
+
+>  offset을 변경하여 위치를 수정할 수 있다
+
+
+
+### Container의 clipBehavior 속성
+
+> 어떤 아이템이 overflow 됐을 때 어떻게 처리할 지 정할 수 있음
+> Clip.hardEdge - overflow 된 부분을 숨김
+
+
+
+## 3.8 Reusable Cards
+
+
+
+## 3.9 Code Challenge
+
